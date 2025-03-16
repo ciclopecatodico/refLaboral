@@ -30,31 +30,31 @@
 			<div class="row ">
 				<div class="col">
 					<div class="form-check">
-						<input type="checkbox" onchange="aprendiz(this)" value="" name="aprendizSena"
-							class="form-check-input" id="aprendizSena">
-						<label for="aprendizSena" class="form-check-label">Aprendiz SENA?</label>
+						<input type="checkbox" onchange="aprendizChange(this)" name="aprendiz"
+							class="form-check-input" id="aprendiz">
+						<label for="aprendiz" class="form-check-label">Aprendiz SENA?</label>
 					</div>
 				</div>
 			</div>
 			<br>
 			<div class="form-check" id="senaEtapasDiv">
 				<div class="col">
-					<input class="form-check-input" type="radio" name="senaEtapa" id="senaEtapaLectiva">
+					<input class="form-check-input" type="radio" value="lectiva" name="senaEtapa" id="senaEtapaLectiva">
 					<label class="form-check-label" for="senaEtapaLectiva">
 						Etapa Lectiva
 					</label>
 				</div>
 				<div class="col">
-					<input class="form-check-input" type="radio" name="senaEtapa" id="senaEtapaPractica" checked>
+					<input class="form-check-input" type="radio" value="practica" name="senaEtapa" id="senaEtapaPractica">
 					<label class="form-check-label" for="senaEtapaPractica">
 						Etapa Práctica
 					</label>
 				</div>
 			</div>
-			<div class="row" id="baseIncome">
+			<div class="row" id="salarioDiv">
 				<div class="col">
-					<label for="baseIncome" class="form-label">Salario Mensual:</label>
-					<input type="text" name="baseIncome" id="baseIncome" class="form-control" />
+					<label for="salario" class="form-label">Salario Mensual:</label>
+					<input type="text" name="salario" id="salario" class="form-control" />
 				</div>
 			</div>
 			<br>
@@ -73,7 +73,7 @@
 					Horas en que trabajas a la semana:
 				</div>
 			</div>
-			<div class="col" id="hourDiv">
+			<div class="container" id="hourDiv">
 			</div>
 			<br>
 			<div class="row">

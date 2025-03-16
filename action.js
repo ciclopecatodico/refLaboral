@@ -3,6 +3,9 @@
 const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 const daysLc = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
 
+const smlv = 1423500;
+const auxTransporte = 200000;
+
 let colCop = new Intl.NumberFormat('es-CO', {
     style: 'currency',
     currency: 'COP',
@@ -15,12 +18,12 @@ const miles = new Intl.NumberFormat('en-US', {
 });
 
 
-function aprendiz(cb){
+function aprendizChange(cb){
 	if(cb.checked){
-		document.getElementById("baseIncome").hidden=true;
+		document.getElementById("salarioDiv").hidden=true;
 		document.getElementById("senaEtapasDiv").hidden=false;
 	}else{
-		document.getElementById("baseIncome").hidden=false;
+		document.getElementById("salarioDiv").hidden=false;
 		document.getElementById("senaEtapasDiv").hidden=true;
 	}
 	document.getElementById("hourDiv").hidden=false;
@@ -64,6 +67,11 @@ function generateHorario(hourDiv){
 
 		hourDiv.appendChild(headersRow);
 
+
+		let emptyRow = document.createElement("div");
+		emptyRow.className="row border border-secondary";
+		emptyRow.append("-");
+
 		days.forEach(day => {
 
 			//Formulario base para horario diurno: 
@@ -101,6 +109,14 @@ function generateHorario(hourDiv){
 
 			hourDiv.appendChild(row);
 
+			// let emptyRow = document.createElement("div");
+			// emptyRow.className="row";
+			// emptyRow.id = normalize(day)+"_emptyrow";
+			// let br = document.createElement("br");
+			// emptyRow.appendChild(br);
+			// hourDiv.appendChild(emptyRow);
+
+			
 			//Formulario para horario nocturno: 
 
 			let row2 = document.createElement("div");
@@ -135,6 +151,13 @@ function generateHorario(hourDiv){
 			row2.appendChild(dayHoursCol2);
 			row2.hidden = true;
 			hourDiv.appendChild(row2);
+
+			let emptyRow2 = document.createElement("div");
+			emptyRow2.className="row";
+			emptyRow2.id = normalize(day)+"_emptyrow2";
+			let br = document.createElement("br");
+			emptyRow2.appendChild(br);
+			hourDiv.appendChild(emptyRow2);
 
 		});
 	}
@@ -223,4 +246,25 @@ function setNocturno(cb){
 
 function normalize(str){
 	return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+
+
+function process(){
+	console.log("Datos a procesar:"); 
+	let data = {};
+	data["nombre"] = document.getElementById("name").value;
+	data["smlv"] = smlv;
+	data["auxilioTransporte"] = auxTransporte;
+	let aprendiz = document.getElementById("aprendiz").checked;
+	if(aprendiz){
+		data["salario"] = 0;
+		data["sena"] = document.querySelector('input[name="senaEtapa"]:checked').value;
+	}else{
+		data["salario"] = document.getElementById("salario").value;
+		data["sena"] = null;
+	}
+	
+	console.log("data:", JSON.stringify(data)); 
+
 }

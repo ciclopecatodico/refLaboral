@@ -1,7 +1,8 @@
 {
     "nombre": "Catalina Torres", 
+    "slmv" : 1423500,
     "salario": 1420000, 
-    "comisiones": 400000,
+    "auxilioTransporte" : 200000,
     "horario" : {
         "lunes": ["18-24"],
         "martes": ["00-06", "18-24"],
