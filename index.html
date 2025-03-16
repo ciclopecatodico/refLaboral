@@ -18,53 +18,94 @@
 		Salario mínimo legal vigente 2025: <b>$1'423.500</b> <br>
 		Subsidio de transporte 2025: <b>$200.000</b> <br>
 		<br>
-		<br>
-		<br>
-
 		<h2>Calcula cómo te impacta la reforma:</h2>
 		<form id="hourForm">
 			<div class="row">
-				<label for="name" class="form-label">Tu nombre:</label>
-				<input type="text" name="name" id="name" class="form-control" />
-			</div>
-			<div class="row form-check">
-				<input type="checkbox" onchange="aprendiz(this)" value="" name="aprendizSena" class="form-check-input"
-					id="aprendizSena">
-				<label for="aprendizSena" class="form-check-label">Aprendiz SENA?</label>
-			</div>
-			<div class="form-check" id="senaEtapaLectivaDiv">
-				<input class="form-check-input" type="radio" name="senaEtapa" id="senaEtapaLectiva">
-				<label class="form-check-label" for="senaEtapaLectiva">
-					Etapa Lectiva
-				</label>
-			</div>
-			<div class="form-check" id="senaEtapaPracticaDiv">
-				<input class="form-check-input" type="radio" name="senaEtapa" id="senaEtapaPractica" checked>
-				<label class="form-check-label" for="senaEtapaPractica">
-					Etapa Práctica
-				</label>
-			</div>
-			<div class="row" id="baseIncome">
-				<label for="baseIncome" class="form-label">Salario Mensual:</label>
-				<input type="text" name="baseIncome" id="baseIncome" class="form-control" />
-			</div>
-			<div class="row" id="aditionalIncome">
-				<label for="aditionalIncome" class="form-label">Otros ingresos mensuales no salariales:</label>
-				<input type="text" name="aditionalIncome" id="aditionalIncome" class="form-control" />
+				<div class="col">
+					<label for="name" class="form-label">Tu nombre:</label>
+					<input type="text" name="name" id="name" class="form-control" />
+				</div>
 			</div>
 			<br>
-			<h3>Horario Laboral</h3>
-			Ingresa o selecciona las horas en que trabajas a la semana:
-			<div class="row form-check" hidden > <!-- TODO -->
-				<input type="checkbox" onchange="setNocturno(this)" value="" name="horarioNocturno" class="form-check-input"
-					id="horarioNocturno">
-				<label for="horarioNocturno" class="form-check-label">Horario Nocturno?</label>
+			<div class="row ">
+				<div class="col">
+					<div class="form-check">
+						<input type="checkbox" onchange="aprendiz(this)" value="" name="aprendizSena"
+							class="form-check-input" id="aprendizSena">
+						<label for="aprendizSena" class="form-check-label">Aprendiz SENA?</label>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="form-check" id="senaEtapasDiv">
+				<div class="col">
+					<input class="form-check-input" type="radio" name="senaEtapa" id="senaEtapaLectiva">
+					<label class="form-check-label" for="senaEtapaLectiva">
+						Etapa Lectiva
+					</label>
+				</div>
+				<div class="col">
+					<input class="form-check-input" type="radio" name="senaEtapa" id="senaEtapaPractica" checked>
+					<label class="form-check-label" for="senaEtapaPractica">
+						Etapa Práctica
+					</label>
+				</div>
+			</div>
+			<div class="row" id="baseIncome">
+				<div class="col">
+					<label for="baseIncome" class="form-label">Salario Mensual:</label>
+					<input type="text" name="baseIncome" id="baseIncome" class="form-control" />
+				</div>
+			</div>
+			<br>
+			<h3>Horario Laboral:</h3>
+			<div class="row ">
+				<div class="col">
+					<div class="form-check">
+						<input type="checkbox" onchange="setNocturno(this)" value="" name="horarioNocturno"
+							class="form-check-input" id="horarioNocturno">
+						<label for="horarioNocturno" class="form-check-label">Trabajas en las noches?</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					Horas en que trabajas a la semana:
+				</div>
 			</div>
 			<div class="col" id="hourDiv">
 			</div>
 			<br>
-			<div class="col">
-				<button type="button" class="btn btn-primary" onclick="process()">Calcular</button>
+			<div class="row">
+				<div class="col">
+					<label class="form-check-label" for="lunchTime">
+						Tiempo de almuerzo, receso o pausa en minutos:
+					</label>
+					<select name="lunchTime" id="lunchTime" class="form-select">
+						<option value="00">00:00</option>
+						<option value="30">00:30</option>
+						<option value="60">01:00</option>
+						<option value="90">01:30</option>
+						<option value="120">02:00</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<label for="domingos" class="form-label">Domingos que trabajas en el año (0-52):</label>
+					<input type="text" name="domingos" id="domingos" class="form-control" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<label for="festivos" class="form-label">Festivos que trabajas en el año (0-18):</label>
+					<input type="text" name="festivos" id="festivos" class="form-control" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<button type="button" class="btn btn-primary" onclick="process()">Calcular</button>
+				</div>
 			</div>
 		</form>
 

@@ -1,0 +1,46 @@
+{
+    "nombre": "Catalina Torres", 
+    "salario": 1420000, 
+    "comisiones": 400000,
+    "horario" : {
+        "lunes": ["18-24"],
+        "martes": ["00-06", "18-24"],
+        "miercoles": ["00-06", "18-24"],
+        "jueves": ["00-06", "18-24"],
+        "viernes": ["00-06", "18-24"],
+        "sabado": ["00-06", "18-24"],
+        "domingo": ["18-24"]
+    },
+    "sena": "lectiva",
+    "descanso" : 90,
+    "meses" : 12,
+    "festivos": 5,
+    "parametros": [
+        { 
+            "nombre" : "Uribe 2002",
+            "parametros" : {
+                "horarioDiurno": ["06-18"],
+                "horarioNocturno": ["06-18"],
+                "festivos": 6, 
+                "recargoNocturno": 35,
+                "recargoFestivos": 30, 
+                "recargoDominical": 20,
+                "lectiva" : 50,
+                "productiva" : 75
+            }
+        },
+        { 
+            "nombre" : "Petro 2002",
+            "parametros" : {
+                "horarioDiurno": ["06-18"],
+                "horarioNocturno": ["06-18"],
+                "festivos": 6, 
+                "recargoNocturno": 35,
+                "recargoFestivos": 30, 
+                "recargoDominical": 20,
+                "lectiva" : 50,
+                "productiva" : 75
+            }
+        }
+    ] 
+}

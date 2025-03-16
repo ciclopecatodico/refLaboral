@@ -1,16 +1,7 @@
 
 
-
-const priceM3 = [0, 1014.25, 2028.50, 2873.71, 3380.84, 5240.30, 5578.39];
-
-const basicCharge = [0, 5346.40, 10692.78, 15148.10, 17821.30, 39919.72, 48830.36];
-
-const postobon = 28;
-
 const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 const daysLc = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
-
-
 
 let colCop = new Intl.NumberFormat('es-CO', {
     style: 'currency',
@@ -24,36 +15,22 @@ const miles = new Intl.NumberFormat('en-US', {
 });
 
 
-
-function calcYear() {
-	
-}
-
-
 function aprendiz(cb){
 	if(cb.checked){
 		document.getElementById("baseIncome").hidden=true;
-		document.getElementById("aditionalIncome").hidden=true;
-		document.getElementById("senaEtapaLectivaDiv").hidden=false;
-		document.getElementById("senaEtapaPracticaDiv").hidden=false;
+		document.getElementById("senaEtapasDiv").hidden=false;
 	}else{
 		document.getElementById("baseIncome").hidden=false;
-		document.getElementById("aditionalIncome").hidden=false;
-		document.getElementById("senaEtapaLectivaDiv").hidden=true;
-		document.getElementById("senaEtapaPracticaDiv").hidden=true;
+		document.getElementById("senaEtapasDiv").hidden=true;
 	}
 	document.getElementById("hourDiv").hidden=false;
 }
 
 
 document.addEventListener("DOMContentLoaded", function() {
-
-	document.getElementById("senaEtapaLectivaDiv").hidden=true;
-	document.getElementById("senaEtapaPracticaDiv").hidden=true;
-	
+	document.getElementById("senaEtapasDiv").hidden=true;
 	let hourDiv = document.getElementById("hourDiv");
     generateHorario(hourDiv);
-	document.getElementById("lunes2_row").hidden=true;
 });
 
 
@@ -67,17 +44,15 @@ function generateHorario(hourDiv){
 
 		let inTitle = document.createElement("div");
 		inTitle.className = "col";
-		inTitle.append("Entrada:");
-
+		inTitle.append("Inicio:");
 
 		let outTitle = document.createElement("div");
 		outTitle.className = "col";
-		outTitle.append("Salida:");
+		outTitle.append("Fin:");
 		
 		let hoursTitle = document.createElement("div");
 		hoursTitle.className = "col";
 		hoursTitle.append("Horas:");
-
 
 		let headersRow = document.createElement("div");
 		headersRow.className="row";
@@ -91,6 +66,8 @@ function generateHorario(hourDiv){
 
 		days.forEach(day => {
 
+			//Formulario base para horario diurno: 
+
 			let row = document.createElement("div");
 			row.className="row";
 			row.id = normalize(day)+"_row";
@@ -98,21 +75,13 @@ function generateHorario(hourDiv){
 			//Dia de la semana
 			let dayCol = document.createElement("div");
 			dayCol.className = "col";
-			dayCol.append(day+":");
+			dayCol.append(day+" Día:");
 
 			//Hora de ingreso
-			let dayInCol = document.createElement("div");
-			dayInCol.className = "col";
-
-			let entrySelect = createHourSelect(`${normalize(day)}_In`, `${normalize(day)}_In`, "form-select");
-			dayInCol.appendChild(entrySelect);
+			let dayInCol = rangeSelect(day, "In", "form-select");
 
 			//Hora de salida 
-			let dayOutCol = document.createElement("div");
-			dayOutCol.className = "col";
-
-			let exitSelect = createHourSelect(`${normalize(day)}_Out`, `${normalize(day)}_Out`, "form-select");
-			dayOutCol.appendChild(exitSelect);
+			let dayOutCol = rangeSelect(day, "Out", "form-select");
 
 			//Horas registradas
 			let dayHoursCol = document.createElement("div");
@@ -129,11 +98,56 @@ function generateHorario(hourDiv){
 			row.appendChild(dayInCol);
 			row.appendChild(dayOutCol);
 			row.appendChild(dayHoursCol);
+
 			hourDiv.appendChild(row);
+
+			//Formulario para horario nocturno: 
+
+			let row2 = document.createElement("div");
+			row2.className="row";
+			row2.id = normalize(day)+"_row2";
+
+			//Dia de la semana
+			let dayCol2 = document.createElement("div");
+			dayCol2.className = "col";
+			dayCol2.append(day+" Noche:");
+
+			//Hora de ingreso
+			let dayInCol2 = rangeSelect(day, "In2", "form-select");
+
+			//Hora de salida 
+			let dayOutCol2 = rangeSelect(day, "Out2", "form-select");
+
+			//Horas registradas
+			let dayHoursCol2 = document.createElement("div");
+			dayHoursCol2.className = "col";
+			let hours2 = document.createElement("input");
+			hours2.name = `${normalize(day)}_hours2`;
+			hours2.id = `${normalize(day)}_hours2`;
+			hours2.className = "form-control";
+			hours2.value = 0;
+			hours2.disabled = true;
+			dayHoursCol2.appendChild(hours2);
+
+			row2.appendChild(dayCol2);
+			row2.appendChild(dayInCol2);
+			row2.appendChild(dayOutCol2);
+			row2.appendChild(dayHoursCol2);
+			row2.hidden = true;
+			hourDiv.appendChild(row2);
+
 		});
 	}
 }
 
+
+function rangeSelect(day, sufix, selectClass) {
+	let dayInCol = document.createElement("div");
+	dayInCol.className = "col";
+	let entrySelect = createHourSelect(`${normalize(day)}_${sufix}`, `${normalize(day)}_${sufix}`, selectClass);
+	dayInCol.appendChild(entrySelect);
+	return dayInCol;
+}
 
 function createHourSelect(name, id, className) {
 	let select = document.createElement("select");
@@ -161,6 +175,8 @@ function createHourSelect(name, id, className) {
 }
 
 function setHours(id, hour){
+	console.log("Id:", id)
+	console.log("Hour:", hour)
 	id =  id.split("_");
 	const day = id[0];
 	const type= id[1]
@@ -189,18 +205,22 @@ function calculateWeekHours(){
 
 function setNocturno(cb){
 	if(cb.checked){
-		document.getElementById("lunes2_row").hidden=false;
+		daysLc.forEach(
+			day => {
+				document.getElementById(day+"_row").hidden=false;
+				document.getElementById(day+"_row2").hidden=false;
+			}
+		)
 	}else{
-		document.getElementById("lunes2_row").hidden=true;
+		daysLc.forEach(
+			day => {
+				document.getElementById(day+"_row").hidden=false;
+				document.getElementById(day+"_row2").hidden=true;
+			}
+		)
 	}
 }
 
 function normalize(str){
 	return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
-
-function showForm(){
-	document.getElementById('waterForm').hidden = false;
-	document.getElementById('hideButton').hidden = true;
-	document.getElementById('infograpy').hidden = true;
 }
